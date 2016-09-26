@@ -115,6 +115,71 @@
             //Assert
             $this->assertEquals($test_Category, $result);
         }
+
+        function testAddTasks() {
+            //ARRANGE
+            $name = "Cool Stuff";
+            $id = 1;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $description = "Do cool stuff";
+            $id2 = 2;
+            $test_task = new Task($description, $id2);
+            $test_task->save();
+
+            //ACT
+            $test_category->addTask($test_task);
+
+            //ASSERT
+            $this->assertEquals($test_category->getTasks(), [$test_task]);
+        }
+
+        function test_getTasks()
+        {
+            // Arrange
+            $name = "cool stuff";
+            $id = 1;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $description = "pull a radical stunt";
+            $test_task = new Task($description, $id);
+            $test_task->save();
+            $test_category->addTask($test_task);
+
+            $description2 = "donate to charity";
+            $id2 = 2;
+            $test_task2 = new Task($description2, $id2);
+            $test_task2->save();
+            $test_category->addTask($test_task2);
+
+            // Act
+            $result = $test_category->getTasks();
+
+            // Assert
+            $this->assertEquals([$test_task, $test_task2], $result);
+        }
+
+        function testDelete()
+        {
+            //ARRANGE
+            $name = "cool stuff";
+            $id = 1;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $description = "pull a radical stunt";
+            $test_task = new Task($description, $id);
+            $test_task->save();
+            $test_category->addTask($test_task);
+
+            //ACT
+            $test_category->delete();
+
+            //ASSERT
+            $this->assertEquals([], $test_task->getCategories());
+        }
     }
 
 ?>

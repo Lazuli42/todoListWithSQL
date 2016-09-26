@@ -21,7 +21,7 @@
 
         }
 
-        function getID()
+        function getId()
         {
             return $this->id;
         }
@@ -43,6 +43,7 @@
         {
             $query = $GLOBALS['DB']->query("SELECT category_id FROM categories_tasks WHERE task_id = {$this->getId()};");
             $category_ids = $query->fetchAll(PDO::FETCH_ASSOC);
+            var_dump($category_ids);
 
             $categories = array();
             foreach($category_ids as $id) {
@@ -61,7 +62,7 @@
         function delete()
         {
             $GLOBALS['DB']->exec("DELETE FROM tasks WHERE id = {$this->getId()};");
-            $GLOBALS['DB']->exec("DELETE FROM categories_tasks WHERE task_id ={$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM categories_tasks WHERE task_id = {$this->getId()};");
         }
 
         static function getAll()

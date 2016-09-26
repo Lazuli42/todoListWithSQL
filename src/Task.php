@@ -43,7 +43,6 @@
         {
             $query = $GLOBALS['DB']->query("SELECT category_id FROM categories_tasks WHERE task_id = {$this->getId()};");
             $category_ids = $query->fetchAll(PDO::FETCH_ASSOC);
-            var_dump($category_ids);
 
             $categories = array();
             foreach($category_ids as $id) {
